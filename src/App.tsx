@@ -1,14 +1,19 @@
 import './App.css'
-import CheckBox from './components/checkBox/checkBox'
+import Title from './components/title/title'
+import Campaigns from './components/campaigns/campaigns'
+import Budget from './components/budget/budget'
 
 export default function App() {
   return (
     <>
       <div>
-        <h1 className="text-center text-3xl font-bold underline">Budget Campaigns</h1>
+        <Title title='Campaigns' />
       </div>
-      <div className="flex justify-center">
-        <CheckBox />
+      <div>
+        <Campaigns />
+      </div>
+      <div>
+        <Budget />
       </div>
     </>
   )
