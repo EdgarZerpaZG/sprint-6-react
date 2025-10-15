@@ -1,1 +1,1 @@
-# sprint-6-react
+# IT Academy - Sprint N°6: REACT
