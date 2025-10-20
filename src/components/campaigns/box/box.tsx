@@ -3,7 +3,12 @@ import type { BoxProps } from "./boxTypes";
 import Count from './../count/count'
 
 export default function Box({ campaign, description, price }: BoxProps) {
-    const [open, setOpen] = useState(false)
+    const [checked, setChecked] = useState(false)
+
+    const handleChange = () => {
+    setChecked(!checked);
+  }
+	const hidden = checked ? '' : 'hidden';
 
     return (
         <>
@@ -18,12 +23,12 @@ export default function Box({ campaign, description, price }: BoxProps) {
                     </div>
                     <div className="flex-1 flex justify-center items-center">
                         <form>
-                            <input type="checkbox" className="rounded-sm" value="Select" onClick={() => setOpen(true)} />
-                            <label>Select</label>
+                            <input type="checkbox" className="rounded-sm cursor-pointer" value="Select" checked={ checked } onChange={ handleChange } />
+                            <label className="mx-3">Select</label>
                         </form>
                     </div>
                 </div>
-                <div className={open ? "block" : "hidden"}>
+                <div className={`p-5 ${hidden}`}>
                     <Count />
                 </div>
             </div>
