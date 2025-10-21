@@ -29,20 +29,20 @@ export default function Box({ campaign, description, price }: BoxProps) {
             <div className="shadow-lg mb-5 rounded-sm">
                 <div className="p-5 flex">
                     <div className="flex-1">
-                    <h4 className="font-bold mb-2">{campaign}</h4>
-                    <p className="text-xs">{description}</p>
+                        <h4 className="font-bold mb-2">{campaign}</h4>
+                        <p className="text-xs">{description}</p>
                     </div>
                     <div className="flex-1 flex justify-center items-center">
-                    <p className="text-3xl font-bold text-center">{price}€</p>
+                        <p className="text-3xl font-bold text-center">{price}€</p>
                     </div>
                     <div className="flex-1 flex justify-center items-center">
-                    <input
-                        type="checkbox"
-                        className="rounded-sm cursor-pointer"
-                        checked={checked}
-                        onChange={handleChange}
-                    />
-                    <label className="mx-3">Select</label>
+                        <input
+                            type="checkbox"
+                            className="rounded-sm cursor-pointer"
+                            checked={checked}
+                            onChange={handleChange}
+                        />
+                        <label className="mx-3">Select</label>
                     </div>
                 </div>
 
