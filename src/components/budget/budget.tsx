@@ -1,9 +1,11 @@
+import { useBudget } from "./budgetContext";
+
 export default function Budget() {
-    return (
-        <>
-            <div>
-                <h4 className="text-right font-bold text-3xl">Budget: {0} €</h4>
-            </div>
-        </>
-    )
+  const { total } = useBudget();
+
+  return (
+    <div className="text-right mt-10">
+      <h4 className="font-bold text-3xl">Total Budget: {total} €</h4>
+    </div>
+  );
 }
