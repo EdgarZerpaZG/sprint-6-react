@@ -6,22 +6,19 @@ import { useBudget } from "../../budget/budgetContext";
 export default function Box({ campaign, description, price }: BoxProps) {
     const [checked, setChecked] = useState(false)
     const [boxTotal, setBoxTotal] = useState(price);
-     const { updateTotal } = useBudget();
+    const { updateTotal } = useBudget();
 
     const handleChange = () => {
         if (checked) {
-        // Si se desmarca, restamos su total del presupuesto global
         updateTotal(-boxTotal);
         setChecked(false);
         } else {
-        // Si se marca, añadimos su precio base al total
         updateTotal(price);
         setChecked(true);
         }
     };
 
     const handleCountChange = (newTotal: number) => {
-        // Calculamos la diferencia y la aplicamos al total global
         const difference = newTotal - boxTotal;
         setBoxTotal(newTotal);
         updateTotal(difference);
