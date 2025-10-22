@@ -1,5 +1,6 @@
 import Title from '../components/title/title'
 import { BudgetProvider } from "../components/budget/budgetContext";
+import { ContactProvider } from '../components/contact/contactContext';
 import Campaigns from '../components/campaigns/campaigns'
 import Budget from '../components/budget/budget'
 import Contact from '../components/contact/contact';
@@ -25,7 +26,9 @@ export default function BudgetMain() {
                     <Contact />
                 </section>
                 <section>
-                    <Budgets />
+                    <ContactProvider>
+                        <Budgets />
+                    </ContactProvider>
                 </section>
             </BudgetProvider>
         </main>

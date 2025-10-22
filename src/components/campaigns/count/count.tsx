@@ -1,16 +1,16 @@
 import { useState, useEffect } from "react";
 
 type CountProps = {
-  basePrice: number;
+  price: number;
   onTotalChange: (total: number) => void;
 };
 
-export function Count({ basePrice, onTotalChange }: CountProps) {
+export function Count({ price, onTotalChange }: CountProps) {
   const [page, setPage] = useState(0);
   const [language, setLanguage] = useState(0);
 
   useEffect(() => {
-    const newTotal = basePrice + (page + language) * 30;
+    const newTotal = price + (page + language) * 30;
     onTotalChange(newTotal);
   }, [page, language]);
 

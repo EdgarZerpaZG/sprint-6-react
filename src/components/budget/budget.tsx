@@ -1,6 +1,7 @@
 import { useBudget } from "./budgetContext";
 
 export default function Budget() {
+  
   const { total } = useBudget();
 
   return (

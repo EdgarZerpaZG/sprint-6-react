@@ -48,7 +48,7 @@ export default function Box({ campaign, description, price }: BoxProps) {
 
                 {checked && (
                     <div className="p-5">
-                    <Count basePrice={price} onTotalChange={handleCountChange} />
+                        <Count price={price} onTotalChange={handleCountChange} />
                     </div>
                 )}
             </div>

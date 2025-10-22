@@ -25,7 +25,7 @@ export function BudgetProvider({ children }: { children: ReactNode }) {
 export function useBudget() {
   const context = useContext(BudgetContext);
   if (!context) {
-    throw new Error("useBudget debe usarse dentro de un BudgetProvider");
+    throw new Error("useBudget most be used within a BudgetProvider");
   }
   return context;
 }
