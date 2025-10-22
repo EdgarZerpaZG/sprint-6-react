@@ -27,13 +27,13 @@ export default function Box({ campaign, description, price }: BoxProps) {
     return (
         <>
             <div className="shadow-lg mb-5 rounded-sm">
-                <div className="p-5 flex">
-                    <div className="flex-1">
+                <div className="p-5 block lg:flex">
+                    <div className="flex-1 text-center lg:text-left mb-5 lg:mb-0">
                         <h4 className="font-bold mb-2">{campaign}</h4>
                         <p className="text-xs">{description}</p>
                     </div>
                     <div className="flex-1 flex justify-center items-center">
-                        <p className="text-3xl font-bold text-center">{price}€</p>
+                        <p className="text-3xl font-bold text-center">{price}<span className="text-sm font-light">€</span></p>
                     </div>
                     <div className="flex-1 flex justify-center items-center">
                         <input
