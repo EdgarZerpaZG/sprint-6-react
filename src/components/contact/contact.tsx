@@ -1,77 +1,72 @@
-import { useState } from 'react'
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import * as z from 'zod';
-import Title from '../title/title'
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+import { useContact } from "./contactContext";
+import { useBudget } from "../budget/budgetContext";
+import Title from "../title/title";
 
+const FormSchema = z.object({
+  name: z.string().min(2, "Name must be at least 2 characters"),
+  phone: z.string().regex(/^[0-9]{7,15}$/, "Invalid phone number"),
+  email: z.string().email("Invalid email address"),
+});
+
+type IFormInput = z.infer<typeof FormSchema>;
 
 export default function Contact() {
+  const { addContact } = useContact();
+  const { total, services, resetBudget } = useBudget();
 
-    const [name, setName] = useState('')
-    const [email, setEmail] = useState('')
-    const [phone, setPhone] = useState('')
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm<IFormInput>({
+    resolver: zodResolver(FormSchema),
+  });
 
-    const FormSchema = z.object({
-        name: z.string().min(2, "Name must be at least 2 characters").max(100, "Name must be at most 100 characters"),
-        phone: z.number().min(1000000, "Phone number must be at least 7 digits").max(9999999999, "Phone number must be at most 10 digits"),
-        email: z.string().email("Invalid email address"),
-    });
+  const onSubmit = (data: IFormInput) => {
+  if (services.length === 0) {
+    alert("Please select at least one campaign before submitting.");
+    return;
+  }
 
-    type IFormInput = z.infer<typeof FormSchema>;
+  addContact({
+    name: data.name,
+    phone: Number(data.phone),
+    email: data.email,
+    total,
+    services: [...services],
+  });
 
+  reset();
+  setTimeout(() => {
+    resetBudget();
+  }, 100); 
+};
 
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-    } = useForm<IFormInput>({
-        resolver: zodResolver(FormSchema)
-    });
+  return (
+    <div className="shadow-lg mb-5 rounded-sm p-5">
+      <Title style="text-2xl pb-3 text-center lg:text-left" title="Request a quote" />
 
+      <form onSubmit={handleSubmit(onSubmit)} className="py-5 flex flex-wrap gap-4">
+        <input {...register("name")} placeholder="Name" className="p-3 border rounded-md flex-1" />
+        {errors.name && <p className="text-red-700">{errors.name.message}</p>}
 
-    const onSubmit = (data: IFormInput) => {
-        setName('')
-        setEmail('')
-        setPhone('')
-        console.log(data)
-    };
+        <input {...register("phone")} placeholder="Phone" className="p-3 border rounded-md flex-1" />
+        {errors.phone && <p className="text-red-700">{errors.phone.message}</p>}
 
-    return (
-        <>
-            <div className="shadow-lg mb-5 rounded-sm">
-                <div className="p-5">
-                    <Title style="text-2xl pb-3 text-center lg:text-left" title='Request a quote' />
-                    <form onSubmit={handleSubmit(onSubmit)} className="py-5 block lg:flex justify-between">
-                        <div className="flex-1">
-                            <input {...register('name')} type="text" name="name" id="form-name" placeholder="Name" className="p-3 border rounded-md w-full lg:w-auto mb-4 lg:mb-0" onChange={(e) => setName(e.target.value)} value={name} required />
-                            {errors?.name?.message && (
-                                <p className="text-red-700 mb-4">
-                                    {errors.name.message}
-                                </p>
-                            )}
-                        </div>
-                        <div className="flex-1">
-                            <input {...register('phone', { valueAsNumber: true })} type="tel" name="phone" id="form-phone" placeholder="Phone" className="p-3 border rounded-md w-full lg:w-auto mb-4 lg:mb-0" onChange={(e) => setPhone(e.target.value)} value={phone} required />
-                            {errors?.phone?.message && (
-                                <p className="text-red-700 mb-4">
-                                    {errors.phone.message}
-                                </p>
-                            )}
-                        </div>
-                        <div className="flex-1">
-                            <input {...register('email')} type="email" name="email" id="form-email" placeholder="Email" className="p-3 border rounded-md w-full lg:w-auto mb-4 lg:mb-0" onChange={(e) => setEmail(e.target.value)} value={email} required />
-                            {errors?.email?.message && (
-                                <p className="text-red-700 mb-4">
-                                    {errors.email.message}
-                                </p>
-                            )}
-                        </div>
-                        <div className="flex-1">
-                            <button type="button" className="p-3 bg-emerald-500 hover:bg-emerald-800 text-white rounded-md cursor-pointer w-full" onClick={handleSubmit(onSubmit)}>Request</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </>
-    )
+        <input {...register("email")} placeholder="Email" className="p-3 border rounded-md flex-1" />
+        {errors.email && <p className="text-red-700">{errors.email.message}</p>}
+
+        <button
+          type="submit"
+          className="p-3 bg-emerald-500 hover:bg-emerald-800 text-white rounded-md flex-1"
+        >
+          Request
+        </button>
+      </form>
+    </div>
+  );
 }
