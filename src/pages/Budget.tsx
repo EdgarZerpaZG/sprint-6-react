@@ -12,10 +12,10 @@ export default function BudgetMain() {
                 <section className="mb-5">
                     <div>
                         <Title style="text-center text-3xl font-bold underline pb-5" title='Campaigns' />
-                        <Modal />
                     </div>
                     <div>
                         <Campaigns />
+                        <Modal />
                     </div>
                     <div>
                         <Budget />

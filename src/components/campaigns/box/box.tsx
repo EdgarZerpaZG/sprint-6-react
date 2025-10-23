@@ -3,7 +3,7 @@ import type { BoxProps } from "./boxTypes";
 import { Count } from "./../count/count";
 import { useBudget } from "../../budget/budgetContext";
 
-export default function Box({ campaign, description, price }: BoxProps) {
+export default function Box({ campaign, id, description, price }: BoxProps) {
   const [checked, setChecked] = useState(false);
   const [boxTotal, setBoxTotal] = useState(price);
   const { updateTotal, addService, removeService } = useBudget();
@@ -36,7 +36,7 @@ export default function Box({ campaign, description, price }: BoxProps) {
   }, [checked]);
 
   return (
-    <div className="shadow-lg mb-5 rounded-sm">
+    <div className="shadow-lg mb-5 rounded-sm" id={id}>
       <div className="p-5 block lg:flex">
         <div className="flex-1 text-center lg:text-left mb-5 lg:mb-0">
           <h4 className="font-bold mb-2">{campaign}</h4>

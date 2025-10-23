@@ -1,7 +1,8 @@
 export default function Modal() {
     return (
         <>
-            <button command="show-modal" commandfor="dialog" className="cursor-pointer rounded-md bg-black px-2.5 py-1.5 text-sm font-semibold text-white inset-ring inset-ring-white/5 hover:bg-gray-500">?</button>
+        <div className="flex justify-center">
+            <button command="show-modal" commandfor="dialog" className="cursor-pointer rounded-md bg-black px-2.5 py-1.5 text-sm font-semibold text-white hover:bg-gray-500">?</button>
                 <el-dialog>
                 <dialog id="dialog" aria-labelledby="dialog-title" className="fixed inset-0 size-auto max-h-none max-w-none overflow-y-auto bg-transparent backdrop:bg-transparent">
                     <el-dialog-backdrop className="fixed inset-0 bg-gray-900/50 transition-opacity data-closed:opacity-0 data-enter:duration-300 data-enter:ease-out data-leave:duration-200 data-leave:ease-in"></el-dialog-backdrop>
@@ -25,6 +26,7 @@ export default function Modal() {
                     </div>
                 </dialog>
                 </el-dialog>
+        </div>
         </>
     )
 }
