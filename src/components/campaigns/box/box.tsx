@@ -6,7 +6,7 @@ import { useBudget } from "../../budget/budgetContext";
 export default function Box({ campaign, id, description, price }: BoxProps) {
   const [checked, setChecked] = useState(false);
   const [boxTotal, setBoxTotal] = useState(price);
-  const { updateTotal, addService, removeService } = useBudget();
+  const { updateTotal, addService, removeService, shouldReset } = useBudget();
 
   const handleChange = () => {
     if (checked) {
@@ -15,7 +15,7 @@ export default function Box({ campaign, id, description, price }: BoxProps) {
       setChecked(false);
     } else {
       updateTotal(price);
-      addService({ campaign, description, price, total: price });
+      addService({ campaign, description, price, total: price, page: 0, language: 0 });
       setChecked(true);
     }
   };
@@ -34,6 +34,13 @@ export default function Box({ campaign, id, description, price }: BoxProps) {
       setBoxTotal(price);
     }
   }, [checked]);
+
+  useEffect(() => {
+    if (shouldReset) {
+      setChecked(false);
+      setBoxTotal(price);
+    }
+  }, [shouldReset]);
 
   return (
     <div className="shadow-lg mb-5 rounded-sm" id={id}>

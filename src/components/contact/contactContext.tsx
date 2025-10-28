@@ -1,19 +1,24 @@
 import { createContext, useContext, useState } from "react";
 import type { ReactNode } from "react";
-import type { SelectedService } from "../budget/budgetContext";
 
 export type Contact = {
+  id: string;
   name: string;
   email: string;
   phone: number;
   total: number;
-  services: SelectedService[];
+  services: {
+    campaign: string;
+    total: number;
+    page: number;
+    language: number;
+  }[];
 };
 
 type ContactContextType = {
   contacts: Contact[];
   addContact: (contact: Contact) => void;
-  removeContact: (index: number) => void; // ✅ nuevo método
+  removeContact: (id: string) => void;
 };
 
 const ContactContext = createContext<ContactContextType | undefined>(undefined);
@@ -32,9 +37,9 @@ export function ContactProvider({ children }: { children: ReactNode }) {
     });
   };
 
-  const removeContact = (index: number) => {
+  const removeContact = (id: string) => {
     setContacts((prev) => {
-      const updated = prev.filter((_, i) => i !== index);
+      const updated = prev.filter((c) => c.id !== id);
       localStorage.setItem("contacts", JSON.stringify(updated));
       return updated;
     });

@@ -3,4 +3,6 @@ export interface BoxProps {
     id: string;
     description: string;
     price: number;
+    page?: number;
+    language?: number;
 }

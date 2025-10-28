@@ -33,12 +33,13 @@ export default function Contact() {
   }
 
   addContact({
-    name: data.name,
-    phone: Number(data.phone),
-    email: data.email,
-    total,
-    services: [...services],
-  });
+  id: crypto.randomUUID(),
+  name: data.name,
+  phone: Number(data.phone),
+  email: data.email,
+  total,
+  services: [...services],
+});
 
   reset();
   setTimeout(() => {
@@ -60,12 +61,7 @@ export default function Contact() {
         <input {...register("email")} placeholder="Email" className="p-3 border rounded-md flex-1" />
         {errors.email && <p className="text-red-700">{errors.email.message}</p>}
 
-        <button
-          type="submit"
-          className="p-3 bg-emerald-500 hover:bg-emerald-800 text-white rounded-md flex-1"
-        >
-          Request
-        </button>
+        <button type="submit" className="p-3 bg-emerald-500 hover:bg-emerald-800 text-white rounded-md flex-1 cursor-pointer">Request</button>
       </form>
     </div>
   );

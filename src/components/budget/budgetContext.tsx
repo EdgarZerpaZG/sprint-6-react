@@ -18,12 +18,14 @@ type BudgetContextType = {
   updateService: (service: SelectedService) => void;
   removeService: (campaign: string) => void;
   resetBudget: () => void;
+  shouldReset: boolean;
 };
 
 const BudgetContext = createContext<BudgetContextType | undefined>(undefined);
 
 export function BudgetProvider({ children }: { children: ReactNode }) {
   const [total, setTotal] = useState(0);
+  const [shouldReset, setShouldReset] = useState(false);
   const [services, setServices] = useState<SelectedService[]>([]);
 
   useEffect(() => {
@@ -46,11 +48,14 @@ export function BudgetProvider({ children }: { children: ReactNode }) {
   const addService = (service: SelectedService) => {
     setServices((prev) => {
       const exists = prev.find((s) => s.campaign === service.campaign);
-      if (exists) return prev;
-      return [...prev, service];
+      if (exists) {
+        const updated = prev.map((s) => (s.campaign === service.campaign ? service : s));
+        return updated;
+      }
+      const newList = [...prev, service];
+      return newList;
     });
   };
-
   const updateService = (service: SelectedService) => {
     setServices((prev) =>
       prev.map((s) => (s.campaign === service.campaign ? service : s))
@@ -70,10 +75,12 @@ export function BudgetProvider({ children }: { children: ReactNode }) {
     setTotal(0);
     setServices([]);
     localStorage.removeItem("budgetData");
+    setShouldReset(true);
+    setTimeout(() => setShouldReset(false), 100);
   };
 
   return (
-    <BudgetContext.Provider value={{total, services, updateTotal, addService, updateService, removeService, resetBudget}}>
+    <BudgetContext.Provider value={{total, services, updateTotal, addService, updateService, removeService, resetBudget, shouldReset,}}>
       {children}
     </BudgetContext.Provider>
   );
