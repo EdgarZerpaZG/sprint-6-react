@@ -3,6 +3,7 @@ export interface BoxProps {
     id: string;
     description: string;
     price: number;
+    discount?: number;
     page?: number;
     language?: number;
 }

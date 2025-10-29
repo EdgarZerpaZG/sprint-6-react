@@ -2,11 +2,29 @@ import { useState, useEffect } from "react";
 import type { BoxProps } from "./boxTypes";
 import { Count } from "./../count/count";
 import { useBudget } from "../../budget/budgetContext";
+import { usePayment } from '../../payment/paymentContext'
 
 export default function Box({ campaign, id, description, price }: BoxProps) {
   const [checked, setChecked] = useState(false);
   const [boxTotal, setBoxTotal] = useState(price);
   const { updateTotal, addService, removeService, shouldReset } = useBudget();
+  const { toggle } = usePayment();
+
+   useEffect(() => {
+    const discountedPrice = toggle ? price * 0.8 : price;
+    setBoxTotal(discountedPrice);
+
+    if (checked) {
+      addService({
+        campaign,
+        description,
+        price: discountedPrice,
+        total: discountedPrice,
+        page: 0,
+        language: 0,
+      });
+    }
+  }, [toggle]);
 
   const handleChange = () => {
     if (checked) {
@@ -14,8 +32,15 @@ export default function Box({ campaign, id, description, price }: BoxProps) {
       removeService(campaign);
       setChecked(false);
     } else {
-      updateTotal(price);
-      addService({ campaign, description, price, total: price, page: 0, language: 0 });
+      updateTotal(boxTotal);
+      addService({ 
+        campaign, 
+        description, 
+        price: boxTotal, 
+        total: boxTotal, 
+        page: 0, 
+        language: 0 
+      });
       setChecked(true);
     }
   };
@@ -26,19 +51,26 @@ export default function Box({ campaign, id, description, price }: BoxProps) {
   setBoxTotal(total);
   updateTotal(difference);
 
-  addService({ campaign, description, price, total, page, language });
-};
+  addService({ 
+      campaign, 
+      description, 
+      price: boxTotal, 
+      total, 
+      page, 
+      language 
+    });
+  };
 
   useEffect(() => {
     if (!checked) {
-      setBoxTotal(price);
+      setBoxTotal(toggle ? price * 0.8 : price);
     }
   }, [checked]);
 
   useEffect(() => {
     if (shouldReset) {
       setChecked(false);
-      setBoxTotal(price);
+      setBoxTotal(toggle ? price * 0.8 : price);
     }
   }, [shouldReset]);
 
@@ -49,7 +81,10 @@ export default function Box({ campaign, id, description, price }: BoxProps) {
           <h4 className="font-bold mb-2">{campaign}</h4>
           <p className="text-xs">{description}</p>
         </div>
-        <div className="flex-1 flex justify-center items-center">
+        <div className="flex-1 justify-center items-center">
+          {toggle && 
+            <p className="text-red-500 text-sm text-center mb-1">20% Discount</p>
+          }
           <p className="text-3xl font-bold text-center">
             {price}
             <span className="text-sm font-light">€</span>
@@ -68,7 +103,7 @@ export default function Box({ campaign, id, description, price }: BoxProps) {
 
       {checked && (
         <div className="p-5">
-          <Count price={price} onChange={handleCountChange} />
+          <Count price={boxTotal} onChange={handleCountChange} />
         </div>
       )}
     </div>

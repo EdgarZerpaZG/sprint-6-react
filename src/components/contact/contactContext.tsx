@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 import type { ReactNode } from "react";
 
 export type Contact = {
@@ -24,25 +24,26 @@ type ContactContextType = {
 const ContactContext = createContext<ContactContextType | undefined>(undefined);
 
 export function ContactProvider({ children }: { children: ReactNode }) {
-  const [contacts, setContacts] = useState<Contact[]>(() => {
+
+  const [contacts, setContacts] = useState<Contact[]>([]);
+
+  useEffect(() => {
     const saved = localStorage.getItem("contacts");
-    return saved ? JSON.parse(saved) : [];
-  });
+    if (saved) {
+      setContacts(JSON.parse(saved));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("contacts", JSON.stringify(contacts));
+  }, [contacts]);
 
   const addContact = (contact: Contact) => {
-    setContacts((prev) => {
-      const updated = [...prev, contact];
-      localStorage.setItem("contacts", JSON.stringify(updated));
-      return updated;
-    });
+    setContacts((prev) => [...prev, contact]);
   };
 
   const removeContact = (id: string) => {
-    setContacts((prev) => {
-      const updated = prev.filter((c) => c.id !== id);
-      localStorage.setItem("contacts", JSON.stringify(updated));
-      return updated;
-    });
+    setContacts((prev) => prev.filter((c) => c.id !== id));
   };
 
   return (

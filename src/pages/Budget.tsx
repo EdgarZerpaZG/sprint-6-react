@@ -1,4 +1,5 @@
 import Title from '../components/title/title'
+import Payment from '../components/payment/payment'
 import Campaigns from '../components/campaigns/campaigns'
 import Budget from '../components/budget/budget'
 import Contact from '../components/contact/contact';
@@ -14,6 +15,9 @@ export default function BudgetMain() {
                         <Title style="text-center text-3xl font-bold underline pb-5" title='Campaigns' />
                     </div>
                     <div>
+                        <Payment />
+                    </div>
+                    <div>
                         <Campaigns />
                         <Modal />
                     </div>
@@ -24,7 +28,7 @@ export default function BudgetMain() {
                 <section className="mb-5">
                     <Contact />
                 </section>
-                <section>
+                <section className="mb-5">
                     <Budgets />
                 </section>
         </main>
