@@ -1,11 +1,15 @@
 import Box from './box/box'
+import DataCampaign from '../../data/dataCampaign'
 
 export default function Campaigns() {
+  
+    const data = DataCampaign();
+
     return (
-    <>
-      <Box campaign="SEO" id="seo" description="Programming a complete responsive website" price={300} discount={20} />
-      <Box campaign="Ads" id="ads" description="Programming a complete responsive website" price={400} discount={20} />
-      <Box campaign="Web" id="web" description="Programming a complete responsive website" price={500} discount={20} />
-    </>
-  )
+      <>
+        {data.map(item => (
+          <Box key={item.id} campaign={item.campaign} id={item.id} description={item.description} price={item.price} discount={item.discount} />
+        ))}
+      </>
+    )
 }
