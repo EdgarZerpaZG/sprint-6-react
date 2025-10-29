@@ -1,8 +1,8 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { useContact } from "./contactContext";
-import { useBudget } from "../budget/budgetContext";
+import { useContact } from "../../hooks/contactContext";
+import { useBudget } from "../../hooks/budgetContext";
 import Title from "../title/title";
 
 const FormSchema = z.object({

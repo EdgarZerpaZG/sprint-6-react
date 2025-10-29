@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import type { BoxProps } from "./boxTypes";
 import { Count } from "./../count/count";
-import { useBudget } from "../../budget/budgetContext";
+import { useBudget } from "../../../hooks/budgetContext";
 import { usePayment } from '../../payment/paymentContext'
 
 export default function Box({ campaign, id, description, price }: BoxProps) {

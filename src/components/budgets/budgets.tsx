@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { useContact } from "../contact/contactContext";
+import { useContact } from "../../hooks/contactContext";
 import Search from "../search/search";
 
 export default function Budgets() {

@@ -1,4 +1,4 @@
-import { useBudget } from "./budgetContext";
+import { useBudget } from "../../hooks/budgetContext";
 
 export default function Budget() {
   
