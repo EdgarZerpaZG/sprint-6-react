@@ -1,6 +1,7 @@
 import { describe, it, expect, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { BudgetProvider } from "../hooks/budgetContext";
 import Budgets from "../components/budgets/budgets";
 
 const mockRemove = vi.fn();
@@ -23,7 +24,7 @@ const mockContacts = [
   },
 ];
 
-vi.mock("../components/contact/contactContext", () => ({
+vi.mock("../hooks/contactContext", () => ({
   useContact: () => ({
     contacts: mockContacts,
     removeContact: mockRemove,
@@ -57,7 +58,11 @@ vi.mock("../components/search/search", () => ({
 
 describe("Budgets component", () => {
   it("renders contacts information in the DOM", () => {
-    render(<Budgets />);
+    render(
+      <BudgetProvider>
+        <Budgets />
+      </BudgetProvider>
+    );
 
     expect(screen.getByText("Alice")).toBeInTheDocument();
     expect(screen.getByText("Bob")).toBeInTheDocument();
@@ -70,7 +75,11 @@ describe("Budgets component", () => {
   });
 
   it("filters contacts when searching", async () => {
-    render(<Budgets />);
+    render(
+      <BudgetProvider>
+        <Budgets />
+      </BudgetProvider>
+    );
 
     const searchInput = screen.getByTestId("search-input");
     await userEvent.type(searchInput, "Alice");
@@ -80,7 +89,11 @@ describe("Budgets component", () => {
   });
 
   it("sorts contacts by name", async () => {
-    render(<Budgets />);
+    render(
+      <BudgetProvider>
+        <Budgets />
+      </BudgetProvider>
+    );
 
     const sortButton = screen.getByTestId("sort-name");
     await userEvent.click(sortButton);
@@ -91,7 +104,11 @@ describe("Budgets component", () => {
   });
 
   it("calls removeContact when clicking delete", async () => {
-    render(<Budgets />);
+    render(
+      <BudgetProvider>
+        <Budgets />
+      </BudgetProvider>
+    );
 
     const deleteButtons = screen.getAllByRole("button", { name: /delete/i });
     await userEvent.click(deleteButtons[0]);

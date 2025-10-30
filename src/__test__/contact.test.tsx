@@ -1,10 +1,10 @@
-import { vi, describe, expect, it } from "vitest";
+import { describe, it, expect, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { ContactProvider } from "../hooks/contactContext";
 import Contact from "../components/contact/contact";
 
-vi.mock("../components/budget/budgetContext", () => ({
+vi.mock("../hooks/budgetContext", () => ({
   useBudget: () => ({
     total: 100,
     services: [{ campaign: "SEO", total: 100, page: 1, language: 1 }],

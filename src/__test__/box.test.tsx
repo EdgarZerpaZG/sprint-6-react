@@ -1,8 +1,22 @@
-import {expect, test} from 'vitest';
+import { describe, it, expect, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { BudgetProvider } from "../hooks/budgetContext";
+import { PaymentProvider } from "../components/payment/paymentContext";
 import Box from './../components/campaigns/box/box';
 
-test('Box should return a function(campaign, id, description, price)', () => {
-    expect(typeof Box).toBe('function')
+describe('Box component', () => {
+    it('should be checked', async () => {
+        const user = userEvent.setup();
+        render(
+            <PaymentProvider>
+                <BudgetProvider>
+                    <Box campaign="SEO" id="1" description="Test Campaign" price={100} />
+                </BudgetProvider>
+            </PaymentProvider>
+        )
+        const checkbox = screen.getByRole('checkbox');
+        await user.click(checkbox);
+        expect(checkbox).toBeChecked();
+    })
 })
