@@ -1,6 +1,6 @@
 # IT Academy - Sprint N°6: REACT(hooks)
 
-## 🌐 Badget campaigns
+## 🌐 Budget campaigns
 
 This project is a **beginner-friendly React application** focused on learning and understanding the **implementation of hooks**.  
 
