@@ -45,7 +45,6 @@ export default function Budgets() {
     <>
       <div className="mt-10 space-y-5">
         <Search onSearch={handleSearch} onSort={handleSort} />
-
         {filteredContacts.length === 0 ? (
           <p className="text-center text-gray-500 mt-5">No quotes yet.</p>
         ) : (
@@ -53,7 +52,7 @@ export default function Budgets() {
             {filteredContacts.map((contact) => (
               <div key={contact.id} className="shadow-lg rounded-sm p-5 flex flex-col gap-3">
                 <div className="text-right">
-                  <Link className="m-0 text-black hover:text-gray-500" to="/details">
+                  <Link className="m-0 text-black hover:text-gray-500" to={`/details/${contact.id}`} target="_blank" rel="noopener noreferrer">
                     <ExternalLink className="inline-block mr-2" size={16} />
                   </Link>
                 </div>
