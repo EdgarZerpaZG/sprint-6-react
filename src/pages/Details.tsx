@@ -55,14 +55,14 @@ export default function Details() {
                             {contact.services.map((service, index) => (
                             <li key={index} className="border-b pb-2">
                                 <strong>{service.campaign}</strong>
-                                {service.page > 0 && <span className="block text-gray-500">Pages: {service.page}</span>}
-                                {service.language > 0 && <span className="block text-gray-500">Languages: {service.language}</span>}
+                                {service.page > 0 && <span className="block text-gray-500"> — Pages: {service.page}</span>}
+                                {service.language > 0 && <span className="block text-gray-500"> — Languages: {service.language}</span>}
                             </li>
                             ))}
                         </ul>
                     </div>
                     <div className="text-center mt-8">
-                        <p className="text-xl font-bold">Total: {contact.total} €</p>
+                        <p className="text-xl font-bold">Total: {contact.total} <span className="text-sm font-light">€</span></p>
                     </div>
                 </section>
             </main>
