@@ -25,17 +25,22 @@ const ContactContext = createContext<ContactContextType | undefined>(undefined);
 
 export function ContactProvider({ children }: { children: ReactNode }) {
 
-  const [contacts, setContacts] = useState<Contact[]>([]);
-
-  useEffect(() => {
-    const saved = localStorage.getItem("contacts");
-    if (saved) {
-      setContacts(JSON.parse(saved));
+  const [contacts, setContacts] = useState<Contact[]>(() => {
+    try {
+      const saved = localStorage.getItem("contacts");
+      return saved ? JSON.parse(saved) : [];
+    } catch (e) {
+      console.error("Error parsing contacts from localStorage", e);
+      return [];
     }
-  }, []);
+  });
 
   useEffect(() => {
-    localStorage.setItem("contacts", JSON.stringify(contacts));
+    try {
+      localStorage.setItem("contacts", JSON.stringify(contacts));
+    } catch (e) {
+      console.error("Error saving contacts to localStorage", e);
+    }
   }, [contacts]);
 
   const addContact = (contact: Contact) => {

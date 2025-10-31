@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./components/navbar/Navbar";
 import Home from "./pages/Home";
 import BudgetMain from "./pages/Budget";
+import DetailsMain from "./pages/Details";
 
 
 export default function App() {
@@ -12,6 +13,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/budget" element={<BudgetMain />} />
+          <Route path="/details" element={<DetailsMain />} />
         </Routes>
       </BrowserRouter>
     </>

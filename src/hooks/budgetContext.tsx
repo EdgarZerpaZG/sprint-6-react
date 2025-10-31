@@ -74,7 +74,6 @@ export function BudgetProvider({ children }: { children: ReactNode }) {
   const resetBudget = () => {
     setTotal(0);
     setServices([]);
-    localStorage.removeItem("budgetData");
     setShouldReset(true);
     setTimeout(() => setShouldReset(false), 100);
   };

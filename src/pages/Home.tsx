@@ -6,7 +6,7 @@ export default function Home() {
     <>
         <main className="flex justify-center items-center h-screen">
             <section>
-                <img src={Vite} alt="Vite logo" className="mx-auto mb-3" />
+                <img src={Vite} alt="Vite logo" className="mx-auto mb-3 max-w-full h-auto" />
                 <Title style="text-center text-3xl font-bold underline pb-5" title='Welcome User! 🚀' />
                 <p className="text-center text-sm">This is the homepage of Campaign Calculator.</p>
                 <p className="text-center">Go to the “Budget” tab to access the budget options.</p>

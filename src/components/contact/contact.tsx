@@ -27,25 +27,27 @@ export default function Contact() {
   });
 
   const onSubmit = (data: IFormInput) => {
-  if (services.length === 0) {
-    alert("Please select at least one campaign before submitting.");
-    return;
-  }
+    if (services.length === 0) {
+      alert("Please select at least one campaign before submitting.");
+      return;
+    }
 
-  addContact({
-  id: crypto.randomUUID(),
-  name: data.name,
-  phone: Number(data.phone),
-  email: data.email,
-  total,
-  services: [...services],
-});
+    const newContact = {
+      id: crypto.randomUUID(),
+      name: data.name,
+      phone: Number(data.phone),
+      email: data.email,
+      total,
+      services: [...services],
+    };
 
-  reset();
-  setTimeout(() => {
-    resetBudget();
-  }, 100); 
-};
+    addContact(newContact);
+
+    setTimeout(() => {
+      reset();
+      resetBudget();
+    }, 300);
+  };
 
   return (
     <div className="shadow-lg mb-5 rounded-sm p-5">
