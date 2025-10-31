@@ -57,7 +57,6 @@ export default function Details() {
                                 <strong>{service.campaign}</strong>
                                 {service.page > 0 && <span className="block text-gray-500">Pages: {service.page}</span>}
                                 {service.language > 0 && <span className="block text-gray-500">Languages: {service.language}</span>}
-                                <span className="block text-gray-700 font-semibold">Total: {service.total}€</span>
                             </li>
                             ))}
                         </ul>
